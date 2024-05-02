@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_react_demo/src/items/item_detail_page.dart';
-import 'package:flutter_react_demo/src/items/item_list_page.dart';
+import 'package:flutter_react_demo/src/features/items/presentation/item_detail/item_detail_page.dart';
+
+import 'features/items/presentation/item_list/item_list_page.dart';
+
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
@@ -17,7 +19,8 @@ class MyApp extends StatelessWidget {
           AppLocalizations.of(context)!.appTitle,
       theme: ThemeData(),
       // darkTheme: ThemeData.dark(),
-      home: ItemListPage(),
+      // home: ItemListPage(),
+      home: ItemDetailPage(),
     );
   }
 }
