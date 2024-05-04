@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class ItemCover extends StatelessWidget {
   const ItemCover({
-    super.key,
+    required this.imageUrl
   });
+
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class ItemCover extends StatelessWidget {
           image: DecorationImage(
               fit: BoxFit.cover,
               image: NetworkImage(
-                'https://www.teamsystem.com/magazine/contrib/uploads/Foodcost.jpg',
+                imageUrl,
               ))),
     );
   }

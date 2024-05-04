@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_react_demo/src/constants/test_item.dart';
 import 'package:flutter_react_demo/src/features/items/presentation/item_detail/item_body.dart';
 import 'package:flutter_react_demo/src/features/items/presentation/item_detail/item_button.dart';
 import 'package:flutter_react_demo/src/features/items/presentation/item_detail/item_cover.dart';
@@ -6,10 +7,13 @@ import 'package:flutter_react_demo/src/features/items/presentation/item_detail/i
 import 'package:flutter_react_demo/src/features/items/presentation/item_detail/item_rating.dart';
 
 class ItemDetailPage extends StatelessWidget {
-  const ItemDetailPage({super.key});
+  const ItemDetailPage({required this.id});
+
+  final String id;
 
   @override
   Widget build(BuildContext context) {
+    final item = items.firstWhere((element) => element.id == id);
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.orange,
@@ -28,16 +32,16 @@ class ItemDetailPage extends StatelessWidget {
             children: [
               SizedBox(height: 30),
               Center(
-                child: ItemCover(),
+                child: ItemCover(imageUrl: item.imageUrl),
               ),
               SizedBox(height: 30),
               ItemRating(),
               SizedBox(height: 8),
-              ItemBody(),
+              ItemBody(title: item.title, description: item.description),
               SizedBox(height: 18),
               Row(
                 children: [
-                  ItemPrice(),
+                  ItemPrice(price: item.price),
                   Spacer(),
                   ItemButton()
                 ],
@@ -49,6 +53,3 @@ class ItemDetailPage extends StatelessWidget {
     );
   }
 }
-
-
-

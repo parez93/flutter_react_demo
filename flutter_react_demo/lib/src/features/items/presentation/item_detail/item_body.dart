@@ -2,20 +2,25 @@ import 'package:flutter/material.dart';
 
 class ItemBody extends StatelessWidget {
   const ItemBody({
-    super.key,
+    required this.title,
+    required this.description
   });
+
+  final String title;
+  final String description;
+
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Lorem ipsum',
+        Text(title,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
         SizedBox(height: 18),
         Text('Description',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-        Text(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        Text(description,
             style: TextStyle(fontSize: 14, color: Colors.black45)),
       ],
     );
