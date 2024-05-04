@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_react_demo/src/constants/test_item.dart';
 import 'package:flutter_react_demo/src/features/items/data/item_repository.dart';
 import 'package:flutter_react_demo/src/features/items/domain/item.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FakeItemRepository implements ItemRepository {
 
@@ -22,3 +23,22 @@ class FakeItemRepository implements ItemRepository {
   }
 
 }
+
+final fakeItemRepositoryProvider = Provider<FakeItemRepository>((ref) {
+  return FakeItemRepository();
+});
+
+final futureItemListProvider = FutureProvider.autoDispose<List<Item>>((ref) {
+  final repository = ref.watch(fakeItemRepositoryProvider);
+  return repository.fetchItemList();
+});
+
+final futureItemProvider = FutureProvider.autoDispose.family<Item, String>((ref, String id) {
+  final repository = ref.watch(fakeItemRepositoryProvider);
+  return repository.fetchItem(id);
+});
+
+final futureUpdateFavouriteProvider = FutureProvider.autoDispose.family<void, String>((ref, String id) {
+  final repository = ref.watch(fakeItemRepositoryProvider);
+  return repository.updateFavourite(id);
+});

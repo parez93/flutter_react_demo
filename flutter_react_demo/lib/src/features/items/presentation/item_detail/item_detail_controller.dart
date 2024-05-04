@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_react_demo/src/features/items/data/fake_item_repository.dart';
 import 'package:flutter_react_demo/src/features/items/data/item_repository.dart';
-import 'package:flutter_react_demo/src/features/items/domain/item.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-enum Status { Error, InProgress, Done }
+class ItemDetailController
+    extends StateNotifier<AsyncValue<Map<String, bool>>> {
+  ItemDetailController({required this.repository}) : super(const AsyncData({}));
 
-class ItemDetailController extends ChangeNotifier {
-  ItemDetailController({required this.repository});
-  late ItemRepository repository;
+  final ItemRepository repository;
 
-
-  Status _operationStatus = Status.Done;
-  Status get operationStatus => _operationStatus;
-
-
-  List<Item> _items = [];
-  get items => _items;
-
-  Map<String, bool> _favourites = {};
-  bool isCurrentFavourited(String id) => _favourites.containsKey(id) ? _favourites[id]! : false;
+  bool isCurrentFavourited(String id) =>
+      state.value!.containsKey(id) ? state.value![id]! : false;
 
   Future<void> updateFavourite(String id) async {
-    _operationStatus = Status.InProgress;
-    notifyListeners();
+    Map<String, bool> _favourites = state.value!;
+    state = const AsyncLoading();
     debugPrint('updateFavourite - waiting');
 
     await repository.updateFavourite(id);
@@ -33,11 +26,15 @@ class ItemDetailController extends ChangeNotifier {
     } else {
       _favourites = {..._favourites, id: true};
     }
+    state = AsyncData(_favourites);
     // debugPrint('>>> ${_favourites}');
 
-    _operationStatus = Status.Done;
-    notifyListeners();
     debugPrint('updateFavourite - sucess');
   }
-
 }
+
+final itemDetailControllerProvider =
+    StateNotifierProvider<ItemDetailController, AsyncValue<Map<String, bool>>>(
+        (ref) {
+  return ItemDetailController(repository: FakeItemRepository());
+});
