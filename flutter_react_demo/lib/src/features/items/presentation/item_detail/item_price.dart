@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 class ItemPrice extends StatelessWidget {
   const ItemPrice({
-    super.key,
+    required this.price,
   });
+
+  final double price;
+
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +16,7 @@ class ItemPrice extends StatelessWidget {
             style:
             TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
         SizedBox(width: 2),
-        Text('10',
+        Text('$price',
             style:
             TextStyle(fontWeight: FontWeight.bold, fontSize: 20))
       ],
