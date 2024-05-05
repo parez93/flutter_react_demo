@@ -6,6 +6,24 @@ import 'package:flutter_react_demo/src/features/items/presentation/item_detail/i
 import 'package:flutter_react_demo/src/features/items/presentation/item_detail/item_price.dart';
 import 'package:flutter_react_demo/src/features/items/presentation/item_detail/item_rating.dart';
 
+class ItemDetailScreen extends Page {
+  final String id;
+
+  ItemDetailScreen({
+    required this.id,
+  }) : super(key: ValueKey(id));
+
+  Route createRoute(BuildContext context) {
+    return MaterialPageRoute(
+      settings: this,
+      builder: (BuildContext context) {
+        return ItemDetailPage(id: id);
+      },
+    );
+  }
+}
+
+
 class ItemDetailPage extends StatelessWidget {
   const ItemDetailPage({required this.id});
 
