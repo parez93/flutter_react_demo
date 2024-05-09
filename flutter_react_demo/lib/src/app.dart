@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_react_demo/src/routing/app_router.dart';
 
 import 'features/items/presentation/item_list/item_list_page.dart';
 
@@ -9,7 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
       AppLocalizations.of(context)!.appTitle,
       theme: ThemeData(),
       // darkTheme: ThemeData.dark(),
-      home: ItemListPage(),
+      routerConfig: router,
+      // home: ItemListPage(),
       // home: ItemDetailPage(),
     );
   }
